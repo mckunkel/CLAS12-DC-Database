@@ -1,0 +1,158 @@
+/*  +__^_________,_________,_____,________^-.-------------------,
+ *  | |||||||||   `--------'     |          |                   O
+ *  `+-------------USMC----------^----------|___________________|
+ *    `\_,---------,---------,--------------'
+ *      / X MK X /'|       /'
+ *     / X MK X /  `\    /'
+ *    / X MK X /`-------'
+ *   / X MK X /
+ *  / X MK X /
+ * (________(                @author m.c.kunkel
+ *  `------'
+*/
+package com.IKP.database.ui.run;
+
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
+
+import com.IKP.database.callbacks.RemovedUserCallback;
+import com.IKP.database.model.entities.RunRange;
+import com.IKP.database.model.entities.User;
+import com.IKP.database.service.RemoveUserFormService;
+import com.IKP.database.serviceimpl.RemoveUserFormServiceImpl;
+import com.IKP.utils.NumberConstants;
+import com.IKP.utils.StringConstants;
+
+public class RemoveRunForm extends JDialog implements ActionListener {
+	private JButton cancelButton;
+	private JButton removeButton;
+	private JLabel runName;
+	private RemoveUserFormService removeUserFormService;
+	private RemovedUserCallback removeCallback;
+
+	private JComboBox<RunRange> runRangeComboBox;
+
+	public RemoveRunForm(JFrame parentFrame) {
+		super(parentFrame, StringConstants.RUN_REMOVE_FORM_TITLE, false);
+
+		initializeVariables();
+		loadData();
+		constructLayout();
+		setWindow(parentFrame);
+	}
+
+	public void loadData() {
+
+		this.runRangeComboBox.removeAllItems();
+
+		List<User> users = this.removeUserFormService.getAllUsers();
+		List<RunRange> runs = this.removeUserFormService.getAllRuns();
+
+		for (RunRange run : runs)
+			this.runRangeComboBox.addItem(run);
+	}
+
+	private void setWindow(JFrame parentFrame) {
+		setSize(NumberConstants.USER_FORM_WINDOW_SIZE_WIDTH, NumberConstants.USER_REMOVE_FORM_WINDOW_SIZE_HEIGHT);
+		setLocationRelativeTo(parentFrame);
+	}
+
+	private void initializeVariables() {
+
+		this.removeUserFormService = new RemoveUserFormServiceImpl();
+		this.runRangeComboBox = new JComboBox<RunRange>();
+
+		this.cancelButton = new JButton(StringConstants.USER_FORM_CANCEL);
+		this.removeButton = new JButton(StringConstants.USER_REMOVE_FORM_DELETE);
+
+		this.runName = new JLabel(StringConstants.RUN_FORM_NAME);
+
+		this.cancelButton.addActionListener(this);
+		this.removeButton.addActionListener(this);
+	}
+
+	private void constructLayout() {
+
+		JPanel userInfoPanel = new JPanel();
+		JPanel buttonsPanel = new JPanel();
+
+		int space = 15;
+		Border spaceBorder = BorderFactory.createEmptyBorder(space, space, space, space);
+		Border titleBorder = BorderFactory.createTitledBorder(StringConstants.RUN_REMOVE_FORM_SUBTITLE);
+
+		userInfoPanel.setBorder(BorderFactory.createCompoundBorder(spaceBorder, titleBorder));
+
+		userInfoPanel.setLayout(new GridBagLayout());
+
+		GridBagConstraints gc = new GridBagConstraints();
+
+		gc.gridy = 0;
+
+		Insets rightPadding = new Insets(0, 0, 0, 15);
+		Insets noPadding = new Insets(0, 0, 0, 0);
+
+		// ///// First row /////////////////////////////
+
+		gc.weightx = 1;
+		gc.weighty = 1;
+		gc.fill = GridBagConstraints.NONE;
+
+		gc.gridx = 0;
+		gc.anchor = GridBagConstraints.EAST;
+		gc.insets = rightPadding;
+		userInfoPanel.add(runName, gc);
+
+		gc.gridx++;
+		gc.anchor = GridBagConstraints.WEST;
+		gc.insets = noPadding;
+		userInfoPanel.add(runRangeComboBox, gc);
+
+		// ////////// Buttons Panel ///////////////
+
+		buttonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+		buttonsPanel.add(removeButton);
+		buttonsPanel.add(cancelButton);
+
+		Dimension btnSize = removeButton.getPreferredSize();
+		cancelButton.setPreferredSize(btnSize);
+
+		// Add sub panels to dialog
+		setLayout(new BorderLayout());
+		add(userInfoPanel, BorderLayout.CENTER);
+		add(buttonsPanel, BorderLayout.SOUTH);
+	}
+
+	public void setCallback(RemovedUserCallback removeCallback) {
+		this.removeCallback = removeCallback;
+	}
+
+	public void actionPerformed(ActionEvent event) {
+		if (event.getSource() == this.cancelButton) {
+			setVisible(false);
+		} else if (event.getSource() == this.removeButton) {
+
+			RunRange runRange = (RunRange) this.runRangeComboBox.getSelectedItem();
+
+			this.removeUserFormService.removeRun(runRange);
+			this.removeCallback.userRemoved();
+
+			this.setVisible(false);
+		}
+	}
+}
