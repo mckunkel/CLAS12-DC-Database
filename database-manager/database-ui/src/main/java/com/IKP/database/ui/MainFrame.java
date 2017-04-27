@@ -36,8 +36,8 @@ import com.IKP.database.model.entities.User;
 import com.IKP.database.service.MainFrameService;
 import com.IKP.database.serviceimpl.MainFrameServiceImpl;
 import com.IKP.database.ui.additem.AddItemForm;
+import com.IKP.database.ui.additem.RemoveItemForm;
 import com.IKP.database.ui.run.RemoveRunForm;
-import com.IKP.database.ui.user.RemoveUsersForm;
 import com.IKP.utils.NumberConstants;
 import com.IKP.utils.StringConstants;
 
@@ -49,13 +49,13 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 
 	private StatusPanel statusPanel;
 
-	// private AddUsersForm addUserForm;
 	private AddItemForm addUserForm;
 	private UsedClass usertest = new User();
+	private UsedClass usertest2 = new User();
 
-	private RemoveUsersForm removeUserForm;
+	// private RemoveUsersForm removeUserForm;
+	private RemoveItemForm removeUserForm;
 
-	// private AddRunForm addRunForm;
 	private AddItemForm addRunForm;
 	private UsedClass runtest = new RunRange();
 	private RemoveRunForm removeRunForm;
@@ -147,7 +147,8 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 		// this.addUserForm = new AddUsersForm(this);
 		this.addUserForm = new AddItemForm(this, usertest);
 
-		this.removeUserForm = new RemoveUsersForm(this);
+		// this.removeUserForm = new RemoveUsersForm(this);
+		this.removeUserForm = new RemoveItemForm(this, usertest2);
 
 		this.addRunForm = new AddItemForm(this, runtest);
 		// this.addRunForm = new AddRunForm(this);

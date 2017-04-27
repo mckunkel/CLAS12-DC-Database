@@ -30,11 +30,7 @@ public class RemoveItemQuery extends AbstractQuery {
 	}
 
 	public RemoveItemQuery(UsedClass usedClass) {
-		createType(usedClass);
-	}
-
-	public void createType(UsedClass usedClass) {
-		this.usedClass = usedClass.getEnityClass();
+		this.usedClass = usedClass;// .getEnityClass();
 	}
 
 	public List<User> getAllUsers() {
@@ -55,7 +51,7 @@ public class RemoveItemQuery extends AbstractQuery {
 
 	public List<UsedClass> getAllItems() {
 		open();
-		Query query = EntityManagerHandler.INSTANCE.getEntityManager().createQuery(this.usedClass.getNamedQuery());
+		Query query = EntityManagerHandler.INSTANCE.getEntityManager().createQuery(usedClass.getNamedQuery());
 		List<UsedClass> aList = query.getResultList();
 		return aList;
 	}

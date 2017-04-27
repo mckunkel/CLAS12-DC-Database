@@ -28,6 +28,10 @@ public class RemoveItemFormServiceImpl implements RemoveItemFormService {
 		this.removeItemQuery = new RemoveItemQuery();
 	}
 
+	public RemoveItemFormServiceImpl(UsedClass usedClass) {
+		this.removeItemQuery = new RemoveItemQuery(usedClass);
+	}
+
 	public List<User> getAllUsers() {
 		return this.removeItemQuery.getAllUsers();
 	}

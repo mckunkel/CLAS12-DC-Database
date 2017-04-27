@@ -33,8 +33,6 @@ import javax.swing.border.Border;
 
 import com.IKP.database.callbacks.RemoveItemCallback;
 import com.IKP.database.model.UsedClass;
-import com.IKP.database.model.entities.RunRange;
-import com.IKP.database.model.entities.User;
 import com.IKP.database.service.RemoveItemFormService;
 import com.IKP.database.serviceimpl.RemoveItemFormServiceImpl;
 import com.IKP.utils.NumberConstants;
@@ -51,9 +49,19 @@ public class RemoveItemForm extends JDialog implements ActionListener {
 
 	private String type;
 
+	UsedClass usedClass;
+
 	public RemoveItemForm(JFrame parentFrame, UsedClass usedClass) {
 		super(parentFrame, StringConstants.RUN_REMOVE_FORM_TITLE, false);
 		this.type = usedClass.getClass().getSimpleName();
+		this.usedClass = usedClass;
+		System.out.println("###################");
+		System.out.println("###################");
+		System.out.println(type);
+
+		System.out.println("###################");
+		System.out.println("###################");
+
 		initializeVariables();
 		loadData();
 		constructLayout();
@@ -62,7 +70,7 @@ public class RemoveItemForm extends JDialog implements ActionListener {
 
 	private void initializeVariables() {
 
-		this.removeItemFormService = new RemoveItemFormServiceImpl();
+		this.removeItemFormService = new RemoveItemFormServiceImpl(usedClass);
 		this.aComboBox = new JComboBox<UsedClass>();
 
 		if (this.type.equalsIgnoreCase("RunRange")) {
@@ -80,33 +88,14 @@ public class RemoveItemForm extends JDialog implements ActionListener {
 		this.removeButton.addActionListener(this);
 	}
 
-	private void createItemType() {
-		if (this.type.equalsIgnoreCase("RunRange")) {
-
-		}
-
-		if (this.type.equalsIgnoreCase("User")) {
-
-		}
-	}
-
 	public void loadData() {
 
 		this.aComboBox.removeAllItems();
 
-		if (this.type.equalsIgnoreCase("RunRange")) {
-			List<UsedClass> users = this.removeItemFormService.getAllItems();
-		}
+		List<UsedClass> rows = this.removeItemFormService.getAllItems();
 
-		if (this.type.equalsIgnoreCase("User")) {
-			this.aJLabel = new JLabel(StringConstants.USER_FORM_NAME);
-		}
-
-		List<User> users = this.removeItemFormService.getAllUsers();
-		List<RunRange> runs = this.removeItemFormService.getAllRuns();
-
-		for (RunRange run : runs)
-			this.aComboBox.addItem(run);
+		for (UsedClass row : rows)
+			this.aComboBox.addItem(row);
 	}
 
 	private void setWindow(JFrame parentFrame) {
@@ -174,9 +163,9 @@ public class RemoveItemForm extends JDialog implements ActionListener {
 			setVisible(false);
 		} else if (event.getSource() == this.removeButton) {
 
-			RunRange runRange = (RunRange) this.aComboBox.getSelectedItem();
+			UsedClass row = (UsedClass) this.aComboBox.getSelectedItem();
 
-			this.removeItemFormService.removeRun(runRange);
+			this.removeItemFormService.removeItem(row);
 			this.removeCallback.itemRemoved();
 
 			this.setVisible(false);

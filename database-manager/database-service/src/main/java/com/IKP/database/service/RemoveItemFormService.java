@@ -24,11 +24,11 @@ public interface RemoveItemFormService {
 
 	public List<RunRange> getAllRuns();
 
-	public List<UsedClass> getAllItems();
-
 	public void removeUser(User user);
 
 	public void removeRun(RunRange runRange);
+
+	public List<UsedClass> getAllItems();
 
 	public void removeItem(UsedClass usedClass);
 }
