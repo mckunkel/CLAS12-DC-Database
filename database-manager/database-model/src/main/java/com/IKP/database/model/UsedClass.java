@@ -10,12 +10,15 @@
  * (________(                @author m.c.kunkel
  *  `------'
 */
-package com.IKP.database.callbacks;
+package com.IKP.database.model;
 
-public interface AddUserCallback {
+import java.util.List;
 
-	public void itemSaved();
+public interface UsedClass {
+	public List<String> getFieldList();
 
-	// public void runSaved();
+	public String getNamedQuery();
+
+	public UsedClass getEnityClass();
 
 }

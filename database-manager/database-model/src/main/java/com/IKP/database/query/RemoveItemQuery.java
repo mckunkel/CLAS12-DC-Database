@@ -17,13 +17,24 @@ import java.util.List;
 import javax.persistence.Query;
 
 import com.IKP.database.model.EntityManagerHandler;
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
 
-public class RemoveUserQuery extends AbstractQuery {
+public class RemoveItemQuery extends AbstractQuery {
 
-	public RemoveUserQuery() {
+	UsedClass usedClass;
 
+	public RemoveItemQuery() {
+
+	}
+
+	public RemoveItemQuery(UsedClass usedClass) {
+		createType(usedClass);
+	}
+
+	public void createType(UsedClass usedClass) {
+		this.usedClass = usedClass.getEnityClass();
 	}
 
 	public List<User> getAllUsers() {
@@ -34,12 +45,6 @@ public class RemoveUserQuery extends AbstractQuery {
 		return usersList;
 	}
 
-	public void removeUser(User user) {
-		open();
-		EntityManagerHandler.INSTANCE.getEntityManager().remove(user);
-		EntityManagerHandler.INSTANCE.getEntityTransaction().commit();
-	}
-
 	public List<RunRange> getAllRuns() {
 		open();
 		Query query = EntityManagerHandler.INSTANCE.getEntityManager().createQuery("SELECT s FROM RunRange s");
@@ -48,9 +53,35 @@ public class RemoveUserQuery extends AbstractQuery {
 		return runList;
 	}
 
+	public List<UsedClass> getAllItems() {
+		open();
+		Query query = EntityManagerHandler.INSTANCE.getEntityManager().createQuery(this.usedClass.getNamedQuery());
+		List<UsedClass> aList = query.getResultList();
+		return aList;
+	}
+
+	public List<UsedClass> getAllItems(UsedClass usedClass) {
+		open();
+		Query query = EntityManagerHandler.INSTANCE.getEntityManager().createQuery(usedClass.getNamedQuery());
+		List<UsedClass> aList = query.getResultList();
+		return aList;
+	}
+
+	public void removeUser(User user) {
+		open();
+		EntityManagerHandler.INSTANCE.getEntityManager().remove(user);
+		EntityManagerHandler.INSTANCE.getEntityTransaction().commit();
+	}
+
 	public void removeRun(RunRange runRange) {
 		open();
 		EntityManagerHandler.INSTANCE.getEntityManager().remove(runRange);
+		EntityManagerHandler.INSTANCE.getEntityTransaction().commit();
+	}
+
+	public void removeItem(UsedClass usedClass) {
+		open();
+		EntityManagerHandler.INSTANCE.getEntityManager().remove(usedClass.getEnityClass());
 		EntityManagerHandler.INSTANCE.getEntityTransaction().commit();
 	}
 

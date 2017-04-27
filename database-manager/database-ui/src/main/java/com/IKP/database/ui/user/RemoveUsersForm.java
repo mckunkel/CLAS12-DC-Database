@@ -31,11 +31,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 
-import com.IKP.database.callbacks.RemovedUserCallback;
+import com.IKP.database.callbacks.RemoveItemCallback;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
-import com.IKP.database.service.RemoveUserFormService;
-import com.IKP.database.serviceimpl.RemoveUserFormServiceImpl;
+import com.IKP.database.service.RemoveItemFormService;
+import com.IKP.database.serviceimpl.RemoveItemFormServiceImpl;
 import com.IKP.utils.NumberConstants;
 import com.IKP.utils.StringConstants;
 
@@ -44,8 +44,8 @@ public class RemoveUsersForm extends JDialog implements ActionListener {
 	private JButton cancelButton;
 	private JButton removeButton;
 	private JLabel userName;
-	private RemoveUserFormService removeUserFormService;
-	private RemovedUserCallback removeCallback;
+	private RemoveItemFormService removeUserFormService;
+	private RemoveItemCallback removeCallback;
 
 	private JComboBox<User> usersNameComboBox;
 	private JComboBox<RunRange> runRangeComboBox;
@@ -80,7 +80,7 @@ public class RemoveUsersForm extends JDialog implements ActionListener {
 
 	private void initializeVariables() {
 
-		this.removeUserFormService = new RemoveUserFormServiceImpl();
+		this.removeUserFormService = new RemoveItemFormServiceImpl();
 		this.usersNameComboBox = new JComboBox<User>();
 
 		this.cancelButton = new JButton(StringConstants.USER_FORM_CANCEL);
@@ -143,7 +143,7 @@ public class RemoveUsersForm extends JDialog implements ActionListener {
 		add(buttonsPanel, BorderLayout.SOUTH);
 	}
 
-	public void setCallback(RemovedUserCallback removeCallback) {
+	public void setCallback(RemoveItemCallback removeCallback) {
 		this.removeCallback = removeCallback;
 	}
 
@@ -155,7 +155,7 @@ public class RemoveUsersForm extends JDialog implements ActionListener {
 			User user = (User) this.usersNameComboBox.getSelectedItem();
 
 			this.removeUserFormService.removeUser(user);
-			this.removeCallback.userRemoved();
+			this.removeCallback.itemRemoved();
 
 			this.setVisible(false);
 		}

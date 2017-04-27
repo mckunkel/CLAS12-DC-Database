@@ -1,13 +1,17 @@
 package com.IKP.database.model.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.abstraction.AbstractTimestampEntity;
 
 /**
@@ -17,7 +21,7 @@ import com.IKP.database.model.abstraction.AbstractTimestampEntity;
 @Entity
 @Table(name = "runRanges")
 @NamedQuery(name = "RunRange.findAll", query = "SELECT r FROM RunRange r")
-public class RunRange extends AbstractTimestampEntity implements Serializable {
+public class RunRange extends AbstractTimestampEntity implements UsedClass, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,7 +36,26 @@ public class RunRange extends AbstractTimestampEntity implements Serializable {
 
 	private int runMin;
 
+	@Transient
+	private List<String> fieldList;
+
 	public RunRange() {
+		createList();
+	}
+
+	private void createList() {
+		this.fieldList = new ArrayList<String>();
+		fieldList.add("Name");
+		fieldList.add("Run Min");
+		fieldList.add("Run Max");
+		// fieldList.add("Entry Created");
+		// fieldList.add("Event Occurance");
+		fieldList.add("Comment");
+
+	}
+
+	public List<String> getFieldList() {
+		return fieldList;
 	}
 
 	public RunRange(String name, int runMax, int runMin, String comment) {
@@ -80,6 +103,19 @@ public class RunRange extends AbstractTimestampEntity implements Serializable {
 
 	public void setRunMin(int runMin) {
 		this.runMin = runMin;
+	}
+
+	public String getNamedQuery() {
+		return "RunRange.findAll";
+	}
+
+	public UsedClass getEnityClass() {
+		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "RunRange [name=" + name + ", runMax=" + runMax + ", runMin=" + runMin + "]";
 	}
 
 }

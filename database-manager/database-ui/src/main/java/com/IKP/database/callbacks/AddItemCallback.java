@@ -12,9 +12,6 @@
 */
 package com.IKP.database.callbacks;
 
-public interface RemovedUserCallback {
-	public void userRemoved();
-
-	// public void runRemoved();
-
+public interface AddItemCallback {
+	public void itemSaved();
 }

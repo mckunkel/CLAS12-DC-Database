@@ -1,6 +1,8 @@
 package com.IKP.database.model.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.abstraction.AbstractTimestampEntity;
 
 /**
@@ -20,7 +24,7 @@ import com.IKP.database.model.abstraction.AbstractTimestampEntity;
 @Entity
 @Table(name = "users")
 @NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
-public class User extends AbstractTimestampEntity implements Serializable {
+public class User extends AbstractTimestampEntity implements UsedClass, Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -29,7 +33,6 @@ public class User extends AbstractTimestampEntity implements Serializable {
 
 	private String info;
 
-	// @Column(nullable = false, columnDefinition = "TINYINT", length = 1)
 	private byte isDeleted;
 
 	@Column(name = "name")
@@ -41,14 +44,30 @@ public class User extends AbstractTimestampEntity implements Serializable {
 	@Lob
 	private String roles;
 
+	@Transient
+	private List<String> fieldList;
+
 	public User() {
+		createList();
+	}
+
+	private void createList() {
+		this.fieldList = new ArrayList<String>();
+		fieldList.add("Name");
+		fieldList.add("Password");
+		fieldList.add("Role");
+		fieldList.add("Information");
+		fieldList.add("IsDeleted");
+
+	}
+
+	public List<String> getFieldList() {
+		return fieldList;
 	}
 
 	public User(String name, String password, String roles, String info, byte isDeleted) {
-		// this.created = created;
 		this.info = info;
 		this.isDeleted = isDeleted;
-		// this.lastActionTime = lastActionTime;
 		this.name = name;
 		this.password = password;
 		this.roles = roles;
@@ -100,6 +119,14 @@ public class User extends AbstractTimestampEntity implements Serializable {
 
 	public void setRoles(String roles) {
 		this.roles = roles;
+	}
+
+	public String getNamedQuery() {
+		return "User.findAll";
+	}
+
+	public UsedClass getEnityClass() {
+		return this;
 	}
 
 	@Override

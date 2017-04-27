@@ -1,4 +1,3 @@
-
 /*  +__^_________,_________,_____,________^-.-------------------,
  *  | |||||||||   `--------'     |          |                   O
  *  `+-------------USMC----------^----------|___________________|
@@ -11,20 +10,25 @@
  * (________(                @author m.c.kunkel
  *  `------'
 */
-
 package com.IKP.database.service;
 
 import java.util.List;
 
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
 
-public interface RemoveUserFormService {
-	public List<User> getAllUsers();
+public interface RemoveItemFormService {
 
-	public void removeUser(User user);
+	public List<User> getAllUsers();
 
 	public List<RunRange> getAllRuns();
 
+	public List<UsedClass> getAllItems();
+
+	public void removeUser(User user);
+
 	public void removeRun(RunRange runRange);
+
+	public void removeItem(UsedClass usedClass);
 }

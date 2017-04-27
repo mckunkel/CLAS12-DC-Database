@@ -10,7 +10,7 @@
  * (________(                @author m.c.kunkel
  *  `------'
 */
-package com.IKP.database.ui.run;
+package com.IKP.database.ui.additem;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.IKP.database.callbacks.RemoveItemCallback;
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
 import com.IKP.database.service.RemoveItemFormService;
@@ -39,52 +40,78 @@ import com.IKP.database.serviceimpl.RemoveItemFormServiceImpl;
 import com.IKP.utils.NumberConstants;
 import com.IKP.utils.StringConstants;
 
-public class RemoveRunForm extends JDialog implements ActionListener {
+public class RemoveItemForm extends JDialog implements ActionListener {
 	private JButton cancelButton;
 	private JButton removeButton;
-	private JLabel runName;
-	private RemoveItemFormService removeUserFormService;
+	private JLabel aJLabel;
+	private RemoveItemFormService removeItemFormService;
 	private RemoveItemCallback removeCallback;
 
-	private JComboBox<RunRange> runRangeComboBox;
+	private JComboBox<UsedClass> aComboBox;
 
-	public RemoveRunForm(JFrame parentFrame) {
+	private String type;
+
+	public RemoveItemForm(JFrame parentFrame, UsedClass usedClass) {
 		super(parentFrame, StringConstants.RUN_REMOVE_FORM_TITLE, false);
-
+		this.type = usedClass.getClass().getSimpleName();
 		initializeVariables();
 		loadData();
 		constructLayout();
 		setWindow(parentFrame);
 	}
 
+	private void initializeVariables() {
+
+		this.removeItemFormService = new RemoveItemFormServiceImpl();
+		this.aComboBox = new JComboBox<UsedClass>();
+
+		if (this.type.equalsIgnoreCase("RunRange")) {
+			this.aJLabel = new JLabel(StringConstants.RUN_FORM_NAME);
+		}
+
+		if (this.type.equalsIgnoreCase("User")) {
+			this.aJLabel = new JLabel(StringConstants.USER_FORM_NAME);
+		}
+
+		this.cancelButton = new JButton(StringConstants.USER_FORM_CANCEL);
+		this.removeButton = new JButton(StringConstants.USER_REMOVE_FORM_DELETE);
+
+		this.cancelButton.addActionListener(this);
+		this.removeButton.addActionListener(this);
+	}
+
+	private void createItemType() {
+		if (this.type.equalsIgnoreCase("RunRange")) {
+
+		}
+
+		if (this.type.equalsIgnoreCase("User")) {
+
+		}
+	}
+
 	public void loadData() {
 
-		this.runRangeComboBox.removeAllItems();
+		this.aComboBox.removeAllItems();
 
-		List<User> users = this.removeUserFormService.getAllUsers();
-		List<RunRange> runs = this.removeUserFormService.getAllRuns();
+		if (this.type.equalsIgnoreCase("RunRange")) {
+			List<UsedClass> users = this.removeItemFormService.getAllItems();
+		}
+
+		if (this.type.equalsIgnoreCase("User")) {
+			this.aJLabel = new JLabel(StringConstants.USER_FORM_NAME);
+		}
+
+		List<User> users = this.removeItemFormService.getAllUsers();
+		List<RunRange> runs = this.removeItemFormService.getAllRuns();
 
 		for (RunRange run : runs)
-			this.runRangeComboBox.addItem(run);
+			this.aComboBox.addItem(run);
 	}
 
 	private void setWindow(JFrame parentFrame) {
 		setSize(NumberConstants.USER_FORM_WINDOW_SIZE_WIDTH, NumberConstants.USER_REMOVE_FORM_WINDOW_SIZE_HEIGHT);
 		setLocationRelativeTo(parentFrame);
-	}
-
-	private void initializeVariables() {
-
-		this.removeUserFormService = new RemoveItemFormServiceImpl();
-		this.runRangeComboBox = new JComboBox<RunRange>();
-
-		this.cancelButton = new JButton(StringConstants.USER_FORM_CANCEL);
-		this.removeButton = new JButton(StringConstants.USER_REMOVE_FORM_DELETE);
-
-		this.runName = new JLabel(StringConstants.RUN_FORM_NAME);
-
-		this.cancelButton.addActionListener(this);
-		this.removeButton.addActionListener(this);
 	}
 
 	private void constructLayout() {
@@ -116,12 +143,12 @@ public class RemoveRunForm extends JDialog implements ActionListener {
 		gc.gridx = 0;
 		gc.anchor = GridBagConstraints.EAST;
 		gc.insets = rightPadding;
-		userInfoPanel.add(runName, gc);
+		userInfoPanel.add(aJLabel, gc);
 
 		gc.gridx++;
 		gc.anchor = GridBagConstraints.WEST;
 		gc.insets = noPadding;
-		userInfoPanel.add(runRangeComboBox, gc);
+		userInfoPanel.add(aComboBox, gc);
 
 		// ////////// Buttons Panel ///////////////
 
@@ -147,9 +174,9 @@ public class RemoveRunForm extends JDialog implements ActionListener {
 			setVisible(false);
 		} else if (event.getSource() == this.removeButton) {
 
-			RunRange runRange = (RunRange) this.runRangeComboBox.getSelectedItem();
+			RunRange runRange = (RunRange) this.aComboBox.getSelectedItem();
 
-			this.removeUserFormService.removeRun(runRange);
+			this.removeItemFormService.removeRun(runRange);
 			this.removeCallback.itemRemoved();
 
 			this.setVisible(false);

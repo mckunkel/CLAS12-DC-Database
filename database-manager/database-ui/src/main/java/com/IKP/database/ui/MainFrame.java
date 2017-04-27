@@ -28,30 +28,36 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 
-import com.IKP.database.callbacks.AddUserCallback;
-import com.IKP.database.callbacks.RemovedUserCallback;
+import com.IKP.database.callbacks.AddItemCallback;
+import com.IKP.database.callbacks.RemoveItemCallback;
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
 import com.IKP.database.service.MainFrameService;
 import com.IKP.database.serviceimpl.MainFrameServiceImpl;
-import com.IKP.database.ui.run.AddRunForm;
+import com.IKP.database.ui.additem.AddItemForm;
 import com.IKP.database.ui.run.RemoveRunForm;
-import com.IKP.database.ui.user.AddUsersForm;
 import com.IKP.database.ui.user.RemoveUsersForm;
 import com.IKP.utils.NumberConstants;
 import com.IKP.utils.StringConstants;
 
-public class MainFrame extends JFrame implements AddUserCallback, RemovedUserCallback {
+public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCallback {
 
 	private MainFrameService mainFrameService;
 	private TablePanel tablePanel;
 	private RunPanel runPanel;
 
 	private StatusPanel statusPanel;
-	private AddUsersForm addUserForm;
+
+	// private AddUsersForm addUserForm;
+	private AddItemForm addUserForm;
+	private UsedClass usertest = new User();
+
 	private RemoveUsersForm removeUserForm;
 
-	private AddRunForm addRunForm;
+	// private AddRunForm addRunForm;
+	private AddItemForm addRunForm;
+	private UsedClass runtest = new RunRange();
 	private RemoveRunForm removeRunForm;
 
 	private JTabbedPane tabbedPane = null;
@@ -137,12 +143,16 @@ public class MainFrame extends JFrame implements AddUserCallback, RemovedUserCal
 		this.tablePanel = new TablePanel();
 		this.runPanel = new RunPanel();
 		this.statusPanel = new StatusPanel();
-		this.addUserForm = new AddUsersForm(this);
+
+		// this.addUserForm = new AddUsersForm(this);
+		this.addUserForm = new AddItemForm(this, usertest);
+
 		this.removeUserForm = new RemoveUsersForm(this);
 
-		this.addRunForm = new AddRunForm(this);
-		this.removeRunForm = new RemoveRunForm(this);
+		this.addRunForm = new AddItemForm(this, runtest);
+		// this.addRunForm = new AddRunForm(this);
 
+		this.removeRunForm = new RemoveRunForm(this);
 	}
 
 	private void constructAppWindow() {
@@ -360,7 +370,7 @@ public class MainFrame extends JFrame implements AddUserCallback, RemovedUserCal
 
 	}
 
-	public void userRemoved() {
+	public void itemRemoved() {
 		refreshTable();
 		this.removeUserForm.loadData();
 		this.removeRunForm.loadData();
