@@ -106,7 +106,7 @@ public class RunRange extends AbstractTimestampEntity implements UsedClass, Seri
 	}
 
 	public String getNamedQuery() {
-		return "RunRange.findAll";
+		return "SELECT u FROM "+ this.getClass().getSimpleName() +" u";
 	}
 
 	public UsedClass getEnityClass() {

@@ -79,6 +79,25 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 		setCallbacks();
 	}
 
+	private void initializeVariables() {
+		this.mainFrameService = new MainFrameServiceImpl();
+		this.tabbedPane = new JTabbedPane();
+		this.tablePanel = new TablePanel();
+		this.runPanel = new RunPanel();
+		this.statusPanel = new StatusPanel();
+
+		// this.addUserForm = new AddUsersForm(this);
+		this.addUserForm = new AddItemForm(this, usertest);
+
+		// this.removeUserForm = new RemoveUsersForm(this);
+		this.removeUserForm = new RemoveItemForm(this, usertest2);
+
+		this.addRunForm = new AddItemForm(this, runtest);
+		// this.addRunForm = new AddRunForm(this);
+
+		this.removeRunForm = new RemoveRunForm(this);
+	}
+
 	private void setCallbacks() {
 		this.addUserForm.setCallback(this);
 		this.removeUserForm.setCallback(this);
@@ -91,6 +110,14 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 	private void refreshTable() {
 		List<User> users = this.mainFrameService.getAllUsers();
 		List<RunRange> runs = this.mainFrameService.getAllRuns();
+		List<UsedClass> test = this.mainFrameService.getAllRows(usertest);
+		System.out.println("##################################################");
+		System.out.println("##################################################");
+		for (UsedClass usedClass : test) {
+			System.out.println(test);
+		}
+		System.out.println("##################################################");
+		System.out.println("##################################################");
 
 		this.tablePanel.setTableModel(users);
 		this.tablePanel.updateTable();
@@ -135,25 +162,6 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 		jplPanel.setLayout(new GridLayout(1, 1));
 		jplPanel.add(jlbDisplay);
 		return jplPanel;
-	}
-
-	private void initializeVariables() {
-		this.mainFrameService = new MainFrameServiceImpl();
-		this.tabbedPane = new JTabbedPane();
-		this.tablePanel = new TablePanel();
-		this.runPanel = new RunPanel();
-		this.statusPanel = new StatusPanel();
-
-		// this.addUserForm = new AddUsersForm(this);
-		this.addUserForm = new AddItemForm(this, usertest);
-
-		// this.removeUserForm = new RemoveUsersForm(this);
-		this.removeUserForm = new RemoveItemForm(this, usertest2);
-
-		this.addRunForm = new AddItemForm(this, runtest);
-		// this.addRunForm = new AddRunForm(this);
-
-		this.removeRunForm = new RemoveRunForm(this);
 	}
 
 	private void constructAppWindow() {

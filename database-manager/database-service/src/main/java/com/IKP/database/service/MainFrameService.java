@@ -15,6 +15,7 @@ package com.IKP.database.service;
 
 import java.util.List;
 
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
 
@@ -23,5 +24,8 @@ public interface MainFrameService {
 
 	public List<RunRange> getAllRuns();
 
+	public List<UsedClass> getAllRows(UsedClass usedClass);
+
 	public void shutdown();
+
 }

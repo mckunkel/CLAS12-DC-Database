@@ -15,6 +15,7 @@ package com.IKP.database.serviceimpl;
 
 import java.util.List;
 
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
 import com.IKP.database.query.MainFrameQuery;
@@ -33,6 +34,10 @@ public class MainFrameServiceImpl implements MainFrameService {
 
 	public List<RunRange> getAllRuns() {
 		return this.mainFrameQuery.getRuns();
+	}
+
+	public List<UsedClass> getAllRows(UsedClass usedClass) {
+		return this.mainFrameQuery.getRows(usedClass);
 	}
 
 	public void shutdown() {

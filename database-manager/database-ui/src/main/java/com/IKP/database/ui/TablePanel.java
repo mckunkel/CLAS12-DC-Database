@@ -72,4 +72,9 @@ public class TablePanel extends JPanel {
 	public void updateTable() {
 		this.tableModel.updateTable();
 	}
+
+	// public void setTableModel(List<UsedClass> rows) {
+	// this.tableModel.setUserList(rows);
+	//
+	// }
 }

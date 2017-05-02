@@ -122,7 +122,8 @@ public class User extends AbstractTimestampEntity implements UsedClass, Serializ
 	}
 
 	public String getNamedQuery() {
-		return "User.findAll";
+
+		return "SELECT u FROM "+ this.getClass().getSimpleName() +" u";
 	}
 
 	public UsedClass getEnityClass() {

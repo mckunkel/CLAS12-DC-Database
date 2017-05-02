@@ -17,6 +17,7 @@ import java.util.List;
 import javax.persistence.Query;
 
 import com.IKP.database.model.EntityManagerHandler;
+import com.IKP.database.model.UsedClass;
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
 
@@ -39,6 +40,14 @@ public class MainFrameQuery extends AbstractQuery {
 
 		List<RunRange> usersList = query.getResultList();
 		return usersList;
+	}
+
+	public List<UsedClass> getRows(UsedClass usedClass) {
+		open();
+		Query query = EntityManagerHandler.INSTANCE.getEntityManager().createQuery(usedClass.getNamedQuery());
+
+		List<UsedClass> rowList = query.getResultList();
+		return rowList;
 	}
 
 }
