@@ -21,14 +21,18 @@ import javax.swing.JTable;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableCellRenderer;
 
-import com.IKP.database.model.entities.User;
+import com.IKP.database.model.EntityFactory;
+import com.IKP.database.model.UsedClass;
 
 public class TablePanel extends JPanel {
 
-	private JTable userTable;
-	private UserTableModel tableModel;
+	private JTable itemTable;
+	private ItemTable tableModel;
 
-	public TablePanel() {
+	private UsedClass usedClass;
+
+	public TablePanel(UsedClass usedClass) {
+		this.usedClass = usedClass;
 		initializeVariables();
 		initialLayout();
 		initializeTableAlignment();
@@ -39,42 +43,34 @@ public class TablePanel extends JPanel {
 
 		DefaultTableCellRenderer tableCellRenderer = new DefaultTableCellRenderer();
 		tableCellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
-		this.userTable.getColumnModel().getColumn(0).setCellRenderer(tableCellRenderer);
-		this.userTable.getColumnModel().getColumn(1).setCellRenderer(tableCellRenderer);
-		this.userTable.getColumnModel().getColumn(2).setCellRenderer(tableCellRenderer);
-		this.userTable.getColumnModel().getColumn(3).setCellRenderer(tableCellRenderer);
-		this.userTable.getColumnModel().getColumn(4).setCellRenderer(tableCellRenderer);
-
+		for (int i = 0; i < EntityFactory.getEntityColNames(usedClass).length; i++) {
+			this.itemTable.getColumnModel().getColumn(i).setCellRenderer(tableCellRenderer);
+		}
 	}
 
 	private void initializeHeaderAlignment() {
 		DefaultTableCellRenderer headerCellRenderer = new DefaultTableCellRenderer();
 		headerCellRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-		this.userTable.getTableHeader().setDefaultRenderer(headerCellRenderer);
+		this.itemTable.getTableHeader().setDefaultRenderer(headerCellRenderer);
 	}
 
 	private void initialLayout() {
 		setLayout(new BorderLayout());
 		setBorder(new EmptyBorder(10, 30, 10, 30));
-		add(new JScrollPane(userTable), BorderLayout.CENTER);
+		add(new JScrollPane(itemTable), BorderLayout.CENTER);
 	}
 
 	private void initializeVariables() {
-		this.tableModel = new UserTableModel();
-		this.userTable = new JTable(tableModel);
+		this.tableModel = new ItemTable(this.usedClass);
+		this.itemTable = new JTable(tableModel);
 	}
 
-	public void setTableModel(List<User> usersList) {
-		this.tableModel.setUserList(usersList);
+	public void setTableModel(List<UsedClass> usersList) {
+		this.tableModel.setItemList(usersList);
 	}
 
 	public void updateTable() {
 		this.tableModel.updateTable();
 	}
 
-	// public void setTableModel(List<UsedClass> rows) {
-	// this.tableModel.setUserList(rows);
-	//
-	// }
 }

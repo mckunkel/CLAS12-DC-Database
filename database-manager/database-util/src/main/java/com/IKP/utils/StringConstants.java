@@ -109,7 +109,7 @@ public class StringConstants {
 	public static final String USER_REMOVE_FORM_DELETE = "Remove";
 
 	public static final String RUN_FORM_TITLE = "New Run";
-	public static final String RUN_FORM_NAME = "Name";
+	public static final String RUN_FORM_NAME = "Run";
 	public static final String RUN_FORM_COMMENT = "Comments";
 	public static final String RUN_FORM_RUNMIN = "Run Min";
 	public static final String RUN_FORM_RUNMAX = "Run Max";

@@ -34,5 +34,10 @@
 			<artifactId>hibernate-jpamodelgen</artifactId>
 			<version>5.2.10.Final</version>
 		</dependency>
+		<dependency>
+			<groupId>com.IKP.dcDatabase</groupId>
+			<artifactId>database-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

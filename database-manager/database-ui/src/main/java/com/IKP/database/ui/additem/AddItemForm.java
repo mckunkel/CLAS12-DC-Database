@@ -100,7 +100,7 @@ public class AddItemForm extends JDialog implements ActionListener {
 		Insets noPadding = new Insets(0, 0, 0, 0);
 
 		for (String str : aList) {
-			System.out.println(str + " " + type);
+			System.out.println(str + " " + type + "in AddItemForm");
 
 			gc.weightx = 1;
 			gc.weighty = 1;

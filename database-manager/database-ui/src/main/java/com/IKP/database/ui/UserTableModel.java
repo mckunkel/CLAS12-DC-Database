@@ -24,14 +24,15 @@ import com.IKP.utils.NumberConstants;
 public class UserTableModel extends AbstractTableModel implements TableModel {
 
 	private List<User> userList;
-	private List<UsedClass> rowList;
 	private String[] colNames = { "Name", "Password", "Role", "Information", "isDeleted" };
+	UsedClass usedClass;
 
 	public UserTableModel() {
 		this.userList = new ArrayList<User>();
 	}
 
 	public int getRowCount() {
+
 		return this.userList.size();
 	}
 
@@ -66,9 +67,6 @@ public class UserTableModel extends AbstractTableModel implements TableModel {
 	public void setUserList(List<User> userList) {
 		this.userList = userList;
 	}
-	// public void setUserList(List<UsedClass> rows) {
-	// this.rowList = rows;
-	// }
 
 	public void updateTable() {
 		fireTableDataChanged();

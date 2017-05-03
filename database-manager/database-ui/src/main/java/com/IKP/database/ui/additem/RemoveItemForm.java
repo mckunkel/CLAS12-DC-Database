@@ -32,6 +32,7 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import com.IKP.database.callbacks.RemoveItemCallback;
+import com.IKP.database.model.EntityFactory;
 import com.IKP.database.model.UsedClass;
 import com.IKP.database.service.RemoveItemFormService;
 import com.IKP.database.serviceimpl.RemoveItemFormServiceImpl;
@@ -73,13 +74,7 @@ public class RemoveItemForm extends JDialog implements ActionListener {
 		this.removeItemFormService = new RemoveItemFormServiceImpl(usedClass);
 		this.aComboBox = new JComboBox<UsedClass>();
 
-		if (this.type.equalsIgnoreCase("RunRange")) {
-			this.aJLabel = new JLabel(StringConstants.RUN_FORM_NAME);
-		}
-
-		if (this.type.equalsIgnoreCase("User")) {
-			this.aJLabel = new JLabel(StringConstants.USER_FORM_NAME);
-		}
+		this.aJLabel = EntityFactory.getJLabel(usedClass);
 
 		this.cancelButton = new JButton(StringConstants.USER_FORM_CANCEL);
 		this.removeButton = new JButton(StringConstants.USER_REMOVE_FORM_DELETE);
@@ -110,7 +105,7 @@ public class RemoveItemForm extends JDialog implements ActionListener {
 
 		int space = 15;
 		Border spaceBorder = BorderFactory.createEmptyBorder(space, space, space, space);
-		Border titleBorder = BorderFactory.createTitledBorder(StringConstants.RUN_REMOVE_FORM_SUBTITLE);
+		Border titleBorder = BorderFactory.createTitledBorder(EntityFactory.getTitleBorder(usedClass));
 
 		userInfoPanel.setBorder(BorderFactory.createCompoundBorder(spaceBorder, titleBorder));
 

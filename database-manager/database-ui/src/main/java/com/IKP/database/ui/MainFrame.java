@@ -37,28 +37,25 @@ import com.IKP.database.service.MainFrameService;
 import com.IKP.database.serviceimpl.MainFrameServiceImpl;
 import com.IKP.database.ui.additem.AddItemForm;
 import com.IKP.database.ui.additem.RemoveItemForm;
-import com.IKP.database.ui.run.RemoveRunForm;
 import com.IKP.utils.NumberConstants;
 import com.IKP.utils.StringConstants;
 
 public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCallback {
 
 	private MainFrameService mainFrameService;
-	private TablePanel tablePanel;
-	private RunPanel runPanel;
-
+	private TablePanel userPanel;
+	private TablePanel runPanel;
 	private StatusPanel statusPanel;
 
+	// Add/remove the item of User
 	private AddItemForm addUserForm;
-	private UsedClass usertest = new User();
-	private UsedClass usertest2 = new User();
-
-	// private RemoveUsersForm removeUserForm;
+	private UsedClass user = new User();
 	private RemoveItemForm removeUserForm;
 
+	// Add/remove the item of RunRange
 	private AddItemForm addRunForm;
-	private UsedClass runtest = new RunRange();
-	private RemoveRunForm removeRunForm;
+	private UsedClass run = new RunRange();
+	private RemoveItemForm removeRunForm;
 
 	private JTabbedPane tabbedPane = null;
 	ImageIcon icon = new ImageIcon("java-swing-tutorial.JPG");
@@ -82,20 +79,16 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 	private void initializeVariables() {
 		this.mainFrameService = new MainFrameServiceImpl();
 		this.tabbedPane = new JTabbedPane();
-		this.tablePanel = new TablePanel();
-		this.runPanel = new RunPanel();
+		this.userPanel = new TablePanel(user);
+		this.runPanel = new TablePanel(run);
+
 		this.statusPanel = new StatusPanel();
 
-		// this.addUserForm = new AddUsersForm(this);
-		this.addUserForm = new AddItemForm(this, usertest);
+		this.addUserForm = new AddItemForm(this, user);
+		this.removeUserForm = new RemoveItemForm(this, user);
 
-		// this.removeUserForm = new RemoveUsersForm(this);
-		this.removeUserForm = new RemoveItemForm(this, usertest2);
-
-		this.addRunForm = new AddItemForm(this, runtest);
-		// this.addRunForm = new AddRunForm(this);
-
-		this.removeRunForm = new RemoveRunForm(this);
+		this.addRunForm = new AddItemForm(this, run);
+		this.removeRunForm = new RemoveItemForm(this, run);
 	}
 
 	private void setCallbacks() {
@@ -108,19 +101,11 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 	}
 
 	private void refreshTable() {
-		List<User> users = this.mainFrameService.getAllUsers();
-		List<RunRange> runs = this.mainFrameService.getAllRuns();
-		List<UsedClass> test = this.mainFrameService.getAllRows(usertest);
-		System.out.println("##################################################");
-		System.out.println("##################################################");
-		for (UsedClass usedClass : test) {
-			System.out.println(test);
-		}
-		System.out.println("##################################################");
-		System.out.println("##################################################");
+		List<UsedClass> users = this.mainFrameService.getAllRows(user);
+		List<UsedClass> runs = this.mainFrameService.getAllRows(run);
 
-		this.tablePanel.setTableModel(users);
-		this.tablePanel.updateTable();
+		this.userPanel.setTableModel(users);
+		this.userPanel.updateTable();
 
 		this.runPanel.setTableModel(runs);
 		this.runPanel.updateTable();
@@ -129,7 +114,7 @@ public class MainFrame extends JFrame implements RemoveItemCallback, AddItemCall
 	private void constructLayout() {
 		setLayout(new BorderLayout());
 
-		tabbedPane.addTab("Users", tablePanel);
+		tabbedPane.addTab("Users", userPanel);
 
 		tabbedPane.addTab("Run Ranges", runPanel);
 		JPanel jplInnerPanel1 = createInnerPanel("Run Range tables will be here");
