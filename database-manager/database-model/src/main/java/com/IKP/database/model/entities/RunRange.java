@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -24,8 +23,9 @@ import com.IKP.database.model.abstraction.AbstractTimestampEntity;
 public class RunRange extends AbstractTimestampEntity implements UsedClass, Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	private int id;
+	// @Id
+	// @GeneratedValue(strategy = GenerationType.AUTO)
+	// private int id;
 
 	@Lob
 	private String comment;
@@ -65,13 +65,13 @@ public class RunRange extends AbstractTimestampEntity implements UsedClass, Seri
 		this.runMin = runMin;
 	}
 
-	public int getId() {
-		return this.id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	// public int getId() {
+	// return this.id;
+	// }
+	//
+	// public void setId(int id) {
+	// this.id = id;
+	// }
 
 	public String getComment() {
 		return this.comment;
@@ -106,7 +106,7 @@ public class RunRange extends AbstractTimestampEntity implements UsedClass, Seri
 	}
 
 	public String getNamedQuery() {
-		return "SELECT u FROM "+ this.getClass().getSimpleName() +" u";
+		return "SELECT u FROM " + this.getClass().getSimpleName() + " u";
 	}
 
 	public UsedClass getEnityClass() {

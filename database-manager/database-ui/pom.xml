@@ -1,29 +1,46 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>com.IKP.dcDatabase</groupId>
-    <artifactId>database-manager</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
-  <artifactId>database-ui</artifactId>
-  <dependencies>
-  	<dependency>
-  		<groupId>com.IKP.dcDatabase</groupId>
-  		<artifactId>database-util</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.IKP.dcDatabase</groupId>
-  		<artifactId>database-service</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>com.IKP.dcDatabase</groupId>
-  		<artifactId>database-model</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  	</dependency>
-  </dependencies>
-  <build>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.IKP.dcDatabase</groupId>
+		<artifactId>database-manager</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>database-ui</artifactId>
+	<repositories>
+		<repository>
+			<id>myLocalMvnRepo</id>
+			<url>file:///${project.basedir}/myLocalMvnRepo</url>
+		</repository>
+	</repositories>
+	<dependencies>
+		<dependency>
+			<groupId>org.jlab.service.dc</groupId>
+			<artifactId>clas12detector-dc</artifactId>
+			<version>0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.jlab.clas</groupId>
+			<artifactId>common-tools</artifactId>
+			<version>0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.IKP.dcDatabase</groupId>
+			<artifactId>database-util</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.IKP.dcDatabase</groupId>
+			<artifactId>database-service</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.IKP.dcDatabase</groupId>
+			<artifactId>database-model</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<build>
 		<plugins>
 			<plugin>
 				<!-- Build an executable JAR -->

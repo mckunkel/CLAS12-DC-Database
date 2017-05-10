@@ -14,23 +14,23 @@ package com.IKP.database.serviceimpl;
 
 import com.IKP.database.model.entities.RunRange;
 import com.IKP.database.model.entities.User;
-import com.IKP.database.query.AddUserQuery;
+import com.IKP.database.query.AddItemQuery;
 import com.IKP.database.service.AddItemFormService;
 
 public class AddItemFormServiceImpl implements AddItemFormService {
 
-	private AddUserQuery addUserQuery;
+	private AddItemQuery addItemQuery;
 
 	public AddItemFormServiceImpl() {
-		this.addUserQuery = new AddUserQuery();
+		this.addItemQuery = new AddItemQuery();
 	}
 
 	public void insertUser(User user) {
-		this.addUserQuery.insertUser(user);
+		this.addItemQuery.insertUser(user);
 	}
 
 	public void insertRun(RunRange runRange) {
-		this.addUserQuery.insertRun(runRange);
+		this.addItemQuery.insertRun(runRange);
 
 	}
 }

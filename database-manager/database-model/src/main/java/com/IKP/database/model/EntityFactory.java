@@ -22,6 +22,97 @@ import com.IKP.database.model.entities.User;
 import com.IKP.utils.StringConstants;
 
 public class EntityFactory {
+	// static interface EntityHandler<T> {
+	// String getStrings(T value, String index);
+	//
+	// int getInts(T value, String index);
+	//
+	// Date getDate(T value, String index);
+	// }
+	//
+	// static Map<Class, EntityHandler> map = new HashMap();
+	// static {
+	// map.put(User.class, new EntityHandler<User>() {
+	// public String getStrings(User user, String index) {
+	// switch (index) {
+	// case "getName":
+	// return user.getName();
+	// case "getPassword":
+	// return user.getPassword();
+	// case "getRoles":
+	// return user.getRoles();
+	// case "getInfo":
+	// return user.getInfo();
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	//
+	// public int getInts(User user, String index) {
+	// switch (index) {
+	// case "getIsDeleted":
+	// return user.getIsDeleted();
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	//
+	// public Date getDate(User user, String index) {
+	// switch (index) {
+	// case "getCreated":
+	// return user.getCreated();
+	// case "getLastActionTime":
+	// return user.getLastActionTime();
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	// });
+	// map.put(RunRange.class, new EntityHandler<RunRange>() {
+	// public String getStrings(RunRange run, String index) {
+	// switch (index) {
+	// case "getName":
+	// return run.getName();
+	// case "getComment":
+	// return run.getComment();
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	//
+	// public int getInts(RunRange run, String index) {
+	// switch (index) {
+	// case "getRunMin":
+	// return run.getRunMin();
+	// case "getRunMax":
+	// return run.getRunMax();
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	//
+	// public Date getDate(RunRange run, String index) {
+	//
+	// switch (index) {
+	// case "getCreated":
+	// return run.getCreated();
+	// case "getLastActionTime":
+	// return run.getLastActionTime();
+	// default:
+	// throw new RuntimeException();
+	// }
+	// }
+	// });
+	// }
+	//
+	// public static Object getValueAt(int rowIndex, String columnIndex, Object
+	// o) {
+	// Class type = o.getClass();
+	// EntityHandler source = map.get(type);
+	// if (source == null)
+	// throw new RuntimeException(type.getName() + " not supported");
+	// return source.getStrings(o, columnIndex);
+	// }
 
 	public static UsedClass getEntity(UsedClass usedClass) {
 
@@ -58,6 +149,7 @@ public class EntityFactory {
 	}
 
 	public static Object getValueAt(int rowIndex, int columnIndex, UsedClass usedClass) {
+		System.out.println(" inside Entityfactory " + usedClass.getClass());
 		if (usedClass instanceof User) {
 
 			switch (columnIndex) {
