@@ -1,5 +1,4 @@
 *.class
-database-manager/database-ui/addLocalRepo.sh
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
