@@ -32,5 +32,8 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/michaelkunkel/WORK/GIT_HUB/clas12-offline-software/coatjava/lib/clas/coat-libs-3.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/Users/michaelkunkel/WORK/GIT_HUB/clas12-offline-software/lib/utils/jclara-4.3-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="/Users/michaelkunkel/WORK/GIT_HUB/DC_Calibration/clasrec-dc.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
